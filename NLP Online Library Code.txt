@@ -1,0 +1,16 @@
+
+library(gutenbergr)
+library(dplyr)
+library(tidytext)
+
+libonline <- gutenberg_download(gutenberg_id = 36120)
+libonline
+
+libonline_words <- libonline %>% tidytext::unnest_tokens(word, text)
+libonline_words
+
+libonline_words %>% count(word, sort = TRUE)
+
+libonline_words <- anti_join(libonline_words, get_stopwords())
+libonline_words %>% count(word, sort = TRUE)
+
